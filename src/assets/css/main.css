@@ -1,3 +1,15 @@
 .router-link-exact-active {
     font-weight: bold;
 }
+
+.btn-success {
+    background-color: #8d4b00;
+}
+
+.btn-success:hover {
+    background-color: darkgreen;
+}
+
+.bagde-success {
+    background-color: green;
+}
