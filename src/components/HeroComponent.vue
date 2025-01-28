@@ -8,12 +8,12 @@
             <div class="justify-content-center align-self-center">
               <h2>
                 <strong>Menu Makanan Enak,</strong><br />
-                hanya dari Handphone
+                hanya dengan Online
               </h2>
               <p>Ayo segera pilih dan pesan makanan favorit Anda</p>
-              <button class="btn btn-sm btn-success">
+              <router-link to="/foods" class="btn btn-sm btn-secondary">
                 <i class="bi bi-arrow-right"></i> Pesan
-              </button>
+              </router-link>
             </div>
           </div>
         </div>
