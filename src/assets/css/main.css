@@ -2,9 +2,9 @@
     font-weight: bold;
 }
 
-.btn-success {
+/* .btn-success {
     background-color: #8d4b00;
-}
+} */
 
 .btn-success:hover {
     background-color: darkgreen;
@@ -13,3 +13,12 @@
 .bagde-success {
     background-color: green;
 }
+
+/* .card-product {
+    border-radius: 10px;
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+} */
