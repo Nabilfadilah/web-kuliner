@@ -18,9 +18,9 @@
         </p>
   
         <!-- Status Ketersediaan -->
-        <a href="#" class="btn btn-sm btn-success">
-          <i class="bi bi-bag"></i> {{ product.is_ready }}
-        </a>
+        <router-link :to="'/foods/'+product.id" class="btn btn-sm btn-success">
+          <i class="bi bi-bag"></i> Pesan
+        </router-link>
       </div>
     </div>
   </template>
