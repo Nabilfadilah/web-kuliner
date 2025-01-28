@@ -12,7 +12,7 @@
           <h3>Best <strong>Foods</strong></h3>
         </div>
         <div class="col">
-          <router-link to="/foods" class="btn btn-sm btn-success float-right"
+          <router-link to="/foods" class="btn btn-sm btn-primary float-right"
             ><i class="bi bi-arrow-right"></i>  Lihat Semua</router-link>
         </div>
       </div>
