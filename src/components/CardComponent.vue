@@ -18,7 +18,7 @@
       <h5 class="card-title fw-bold text-dark">{{ product.nama }}</h5>
 
       <!-- Harga Produk -->
-      <p class="card-text text-success fw-semibold">Rp. {{ product.harga }}</p>
+      <p class="card-text text-success fw-semibold">{{ formatRupiah(product.harga) }}</p>
 
       <!-- Status Ketersediaan -->
       <router-link :to="'/foods/'+product.id" class="btn btn-sm btn-outline-success">
@@ -32,6 +32,17 @@
   export default {
     name: "CardComponent",
     props: ["product"],
+    computed: {
+    formatRupiah() {
+      return (value) => {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+          minimumFractionDigits: 0,
+        }).format(value);
+      };
+    },
+  },
   };
   </script>
   
