@@ -29,7 +29,7 @@
             <router-link class="nav-link" to="/keranjang"
               >Keranjang
               <i class="bi bi-bag"></i>
-              <span class="badge badge-success ml-2">0</span>
+                <span class="badge text-bg-success ml-5">{{ jumlah_pemesanan.length }}</span>
             </router-link>
           </li>
         </ul>
@@ -39,8 +39,35 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "NavbarComponent", // karena pake ESLint jadi harus multi-kata
+  data() {
+    return {
+      jumlah_pemesanan: [],
+    };
+  },
+  methods: {
+    setJumlah(data) {
+      this.jumlah_pemesanan = data;
+    },
+  },
+  // ketika dijalankan/dipasang maka halaman code akan berjalan
+  mounted() {
+    // menggunakan axios
+    axios
+      .get("http://localhost:3000/keranjangs")
+      .then((response) => {
+        // handle success
+        this.setJumlah(response.data);
+        console.log("Berhasil GET data", response);
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
+      });
+  },
 };
 </script>
 
