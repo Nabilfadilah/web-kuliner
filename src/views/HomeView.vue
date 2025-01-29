@@ -9,7 +9,7 @@
 
       <div class="d-flex justify-content-between align-items-center mt-4">
         <h3 class="fw-bold">Rekomendasi</h3>
-        <router-link to="/foods" class="btn btn-sm btn-outline-primary">
+        <router-link to="/menu" class="btn btn-sm btn-outline-primary">
           <i class="bi bi-arrow-right"></i> Lihat Semua
         </router-link>
       </div>

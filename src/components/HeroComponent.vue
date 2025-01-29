@@ -9,7 +9,7 @@
             hanya dengan Tab layar
           </h2>
           <p class="text-muted">Ayo segera pilih dan pesan minuman favorit Anda</p>
-          <router-link to="/foods" class="btn btn-sm btn-primary">
+          <router-link to="/menu" class="btn btn-sm btn-primary">
             <i class="bi bi-cart-fill"></i> Pesan Sekarang
           </router-link>
         </div>

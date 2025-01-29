@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                2025. Copyright KulinerBandung
+                2025. Copyright NabilFadilah
             </div>
         </div>
     </div>

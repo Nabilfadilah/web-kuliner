@@ -12,12 +12,12 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/foods',
+    path: '/menu',
     name: 'Foods',
     component: FoodsView
   },
   {
-    path: '/foods/:id',
+    path: '/menu/:id',
     name: 'FoodDetail',
     component: FoodDetailView
   },

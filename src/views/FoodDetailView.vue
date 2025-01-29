@@ -11,10 +11,10 @@
                 <router-link to="/" class="text-dark">Home</router-link>
               </li>
               <li class="breadcrumb-item" aria-current="page">
-                <router-link to="/foods" class="text-dark">Foods</router-link>
+                <router-link to="/menu" class="text-dark">Menu</router-link>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
-                Food Order
+                Pemesanan
               </li>
             </ol>
           </nav>
