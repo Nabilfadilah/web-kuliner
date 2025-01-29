@@ -12,10 +12,17 @@ import { BootstrapVue3 } from 'bootstrap-vue-3';
 
 import './assets/css/main.css';
 
+// vue notification
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-default.css'
+
 const app = createApp(App);
 
 // Use the BootstrapVue3 plugin
 app.use(BootstrapVue3);
+
+// Use VueToast
+app.use(VueToast);
 
 // Use the Vue router
 app.use(router);
