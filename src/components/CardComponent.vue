@@ -21,7 +21,7 @@
       <p class="card-text text-success fw-semibold">Rp. {{ product.harga }}</p>
 
       <!-- Status Ketersediaan -->
-      <router-link :to="'/foods/'+product.id" class="btn btn-sm btn-primary">
+      <router-link :to="'/foods/'+product.id" class="btn btn-sm btn-outline-success">
         <i class="bi bi-bag"></i> Pesan
       </router-link>
     </div>
