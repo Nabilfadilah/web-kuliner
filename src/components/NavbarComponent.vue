@@ -29,7 +29,7 @@
             <router-link class="nav-link" to="/keranjang"
               >Keranjang
               <i class="bi bi-bag"></i>
-                <span class="badge text-bg-success ml-5">{{ jumlah_pemesanan.length }}</span>
+                <span class="badge text-bg-success ml-5">{{ updateKeranjang ? updateKeranjang.length : jumlah_pemesanan.length }}</span>
             </router-link>
           </li>
         </ul>
@@ -48,6 +48,10 @@ export default {
       jumlah_pemesanan: [],
     };
   },
+
+  // pake props 
+  props: ["updateKeranjang"],
+
   methods: {
     setJumlah(data) {
       this.jumlah_pemesanan = data;

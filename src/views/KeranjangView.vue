@@ -1,6 +1,6 @@
 <template>
   <div class="keranjang">
-    <navbar-component />
+    <navbar-component :updateKeranjang="keranjangs" />
 
     <div class="container">
       <!-- breadcrumb -->
@@ -72,7 +72,10 @@
                     >
                   </td>
                   <td class="text-danger">
-                    <i class="bi bi-trash"></i>
+                    <i
+                      class="bi bi-trash"
+                      @click="hapusKeranjang(keranjang.id)"
+                    ></i>
                   </td>
                 </tr>
 
@@ -108,8 +111,37 @@ export default {
     };
   },
   methods: {
-    setKeranjang(data) {
+    setKeranjangs(data) {
       this.keranjangs = data;
+    },
+    hapusKeranjang(id) {
+      axios
+        .delete("http://localhost:3000/keranjangs/" + id)
+        .then(() => {
+          this.$toast.open({
+            message: "Hapus Produk Berhasil",
+            type: "error",
+            position: "top-right",
+            duration: 3000,
+            dismissible: true,
+          });
+
+          // untuk mengambil data baru lagi, agar tidak reaload
+          axios
+            .get("http://localhost:3000/keranjangs")
+            .then((response) => {
+              // handle success
+              this.setKeranjangs(response.data);
+            })
+            .catch((error) => {
+              // handle error
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
+        });
     },
   },
   mounted() {
@@ -117,7 +149,7 @@ export default {
       .get("http://localhost:3000/keranjangs")
       .then((response) => {
         // handle success
-        this.setKeranjang(response.data);
+        this.setKeranjangs(response.data);
         console.log("Berhasil GET data", response);
       })
       .catch((error) => {
