@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-secondary">
     <div class="container">
-      <a class="navbar-brand" href="#">Kuliner Bandung</a>
+      <a class="navbar-brand" href="#"><strong>Kopi Mandja</strong></a>
       <button
         class="navbar-toggler"
         type="button"
