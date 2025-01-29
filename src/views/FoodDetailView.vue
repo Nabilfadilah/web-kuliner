@@ -102,6 +102,7 @@ export default {
         axios
         .post("http://localhost:3000/keranjangs", this.pesan)
         .then(() => {
+          this.$router.push({path: "/keranjang"})
           this.$toast.open({
             message: "Sukses Masuk Keranjang",
             type: "success",
