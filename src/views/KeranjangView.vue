@@ -22,6 +22,7 @@
         </div>
       </div>
 
+      <!-- table -->
       <div class="row">
         <div class="col">
           <h4>Keranjang <strong>Saya</strong></h4>
@@ -92,6 +93,31 @@
           </div>
         </div>
       </div>
+
+      <!-- form checkout -->
+      <div class="row justify-content-end">
+        <div class="col-md-4">
+          <form class="mt-4" v-on:submit.prevent>
+            <div class="form-group mb-3">
+              <label for="nama">Nama :</label>
+              <input type="text" class="form-control" v-model="pesan.nama" />
+            </div>
+
+            <div class="form-group">
+              <label for="noMeja">No Meja :</label>
+              <input type="text" class="form-control" v-model="pesan.noMeja" />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-success mt-3"
+              @click="checkout"
+            >
+              <i class="bi bi-bag"></i> Pesan
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -108,6 +134,7 @@ export default {
   data() {
     return {
       keranjangs: [],
+      pesan: {},
     };
   },
   methods: {
@@ -142,6 +169,47 @@ export default {
           // handle error
           console.log(error);
         });
+    },
+
+    // untuk nama dan noMeja
+    checkout() {
+      console.log("Pesan", this.pesan);
+
+      if (this.pesan.nama && this.pesan.noMeja) {
+        axios
+          .post("http://localhost:3000/pesanans", this.pesan)
+          .then(() => {
+
+            // hapus semua keranjang
+            this.keranjangs.map((item) => {
+              axios
+                .delete("http://localhost:3000/keranjangs/" + item.id)
+                
+                .catch((error) => {
+                  // handle error
+                  console.log(error);
+                });
+            });
+
+            this.$router.push({ path: "/pesanan-sukses" });
+            this.$toast.open({
+              message: "Sukses dipesanan",
+              type: "success",
+              position: "top-right",
+              duration: 3000,
+              dismissible: true,
+            });
+          })
+          .catch((err) => console.log(err));
+      } else {
+        this.$toast.open({
+          message: "Nama dan No Meja Harus diisi",
+          type: "error",
+          position: "top-right",
+          duration: 3000,
+          dismissible: true,
+        });
+      }
     },
   },
   mounted() {
