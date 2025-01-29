@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import FoodsView from '@/views/FoodsView.vue'
 import FoodDetailView from '@/views/FoodDetailView.vue'
 import KeranjangView from '@/views/KeranjangView.vue'
+import PesananSuksesView from '@/views/PesananSuksesView.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/keranjang',
     name: 'Keranjang',
     component: KeranjangView
+  },
+  {
+    path: '/pesanan-sukses',
+    name: 'PesananSukses',
+    component: PesananSuksesView
   },
   {
     path: '/about',
