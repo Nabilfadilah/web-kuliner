@@ -7,27 +7,29 @@
     <div class="container">
       <hero-component />
 
-      <div class="row mt-4">
-        <div class="col">
-          <h3>Best <strong>Foods</strong></h3>
-        </div>
-        <div class="col">
-          <router-link to="/foods" class="btn btn-sm btn-primary float-right"
-            ><i class="bi bi-arrow-right"></i>  Lihat Semua</router-link>
-        </div>
+      <div class="d-flex justify-content-between align-items-center mt-4">
+        <h3 class="fw-bold">Rekomendasi</h3>
+        <router-link to="/foods" class="btn btn-sm btn-outline-primary">
+          <i class="bi bi-arrow-right"></i> Lihat Semua
+        </router-link>
       </div>
 
       <!-- Grid Produk -->
-      <div class="row">
-        <div
-          class="col-12 col-sm-6 col-md-4 col-lg-3 mt-4"
+      <!-- <div
+        class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gap-4 mt-4"
+      >
+        <card-component
           v-for="product in products"
           :key="product.id"
-        >
+          :product="product"
+        />
+      </div> -->
+
+      <div class="row mb-4">
+        <div class="col-md-3 mt-4" v-for="product in products" :key="product.id">
           <card-component :product="product" />
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -37,30 +39,30 @@
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import HeroComponent from "@/components/HeroComponent.vue";
 import CardComponent from "@/components/CardComponent.vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "HomeView",
   components: {
     NavbarComponent,
     HeroComponent,
-    CardComponent
+    CardComponent,
   },
   // nantinya data API akan disimpan disini
   data() {
     return {
-      products: []
-    }
+      products: [],
+    };
   },
   methods: {
     setProduct(data) {
-      this.products = data
-    }
+      this.products = data;
+    },
   },
-  // ketika dijalankan/dipasang maka halaman code akan berjalan 
+  // ketika dijalankan/dipasang maka halaman code akan berjalan
   mounted() {
     // menggunakan axios
-    axios 
+    axios
       .get("http://localhost:3000/best-products")
       .then((response) => {
         // handle success
@@ -70,7 +72,7 @@ export default {
       .catch((error) => {
         // handle error
         console.log(error);
-      })
-  }
+      });
+  },
 };
 </script>

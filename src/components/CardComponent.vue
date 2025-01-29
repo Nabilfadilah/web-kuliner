@@ -1,48 +1,78 @@
 <template>
-    <div class="card shadow-sm border-light rounded mb-4" style="max-width: 18rem; background-color: #f8f9fa;">
-      <!-- Gambar Produk -->
+  <div 
+    class="card product-card border-0 shadow-2xl rounded mb-4"
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
+  >
+    <!-- Gambar Produk -->
+    <div class="card-img-container">
       <img
         :src="require('@/assets/images/' + product.gambar)"
-        class="card-img-top img-fluid"
+        class="card-img-top"
         alt="Product image"
-        style="height: 200px; object-fit: cover;"
       />
-      
-      <div class="card-body">
-        <!-- Nama Produk -->
-        <h5 class="card-title font-weight-bold text-truncate" style="max-width: 100%;">{{ product.nama }}</h5>
-  
-        <!-- Harga Produk -->
-        <p class="card-text text-success font-weight-bold">
-          Rp. {{ product.harga }}
-        </p>
-  
-        <!-- Status Ketersediaan -->
-        <router-link :to="'/foods/'+product.id" class="btn btn-sm btn-success">
-          <i class="bi bi-bag"></i> Pesan
-        </router-link>
-      </div>
     </div>
-  </template>
+
+    <div class="card-body text-center">
+      <!-- Nama Produk -->
+      <h5 class="card-title fw-bold text-dark">{{ product.nama }}</h5>
+
+      <!-- Harga Produk -->
+      <p class="card-text text-success fw-semibold">Rp. {{ product.harga }}</p>
+
+      <!-- Status Ketersediaan -->
+      <router-link :to="'/foods/'+product.id" class="btn btn-sm btn-primary">
+        <i class="bi bi-bag"></i> Pesan
+      </router-link>
+    </div>
+  </div>
+</template>
   
-  <script>
+<script>
   export default {
     name: "CardComponent",
     props: ["product"],
   };
   </script>
   
-  <style scoped>
-  .card-product {
-    border-radius: 10px;
-  }
-  
-  .card-body {
-    padding: 1.25rem;
-  }
-  
-  .card-img-top {
-    border-radius: 10px 10px 0 0;
-  }
-  </style>
+<style scoped>
+.product-card {
+  max-width: 100%;
+  background-color: #f8f9fa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important; /* shadow-2xl */
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.btn-primary {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+</style>
   
