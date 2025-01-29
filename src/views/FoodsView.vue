@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row mt-4">
       <div class="col">
-        <h2>Daftar <strong>Makanan</strong></h2>
+        <h2>Daftar <strong>Minuman</strong></h2>
       </div>
     </div>
 
@@ -14,7 +14,7 @@
             v-model="search"
             type="text"
             class="form-control"
-            placeholder="Cari Makanan..."
+            placeholder="Cari Minuman..."
             aria-label="cari"
             aria-describedby="basic-addon1"
             @keyup="searchFood"
