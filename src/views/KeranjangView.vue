@@ -37,7 +37,7 @@
                   <th scope="col">Jumlah</th>
                   <th scope="col">Harga</th>
                   <th scope="col">Total Harga</th>
-                  <th scope="col">Hapus</th>
+                  <th scope="col">Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -63,12 +63,12 @@
                     {{ keranjang.keterangan ? keranjang.keterangan : "-" }}
                   </td>
                   <td>{{ keranjang.jumlah_pemesanan }}</td>
-                  <td>Rp. {{ keranjang.products.harga }}</td>
+                  <td>{{ formatRupiah(keranjang.products.harga) }}</td>
                   <td>
                     <strong
-                      >Rp.
+                      >
                       {{
-                        keranjang.products.harga * keranjang.jumlah_pemesanan
+                        formatRupiah(keranjang.products.harga * keranjang.jumlah_pemesanan)
                       }}</strong
                     >
                   </td>
@@ -85,7 +85,7 @@
                     <strong>Total Harga : </strong>
                   </td>
                   <td>
-                    <strong>Rp. {{ totalHarga }}</strong>
+                    <strong>{{ formatRupiah(totalHarga) }}</strong>
                   </td>
                 </tr>
               </tbody>
@@ -226,7 +226,7 @@ export default {
       });
   },
 
-  // untuk menjumlahkan
+  // untuk format / menjumlahkan
   computed: {
     totalHarga() {
       return this.keranjangs.reduce((total, item) => {
@@ -236,6 +236,17 @@ export default {
         );
       }, 0);
     },
+
+    // format rupiah
+    formatRupiah() {
+      return (value) => {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+          minimumFractionDigits: 0,
+        }).format(value);
+      };
+    }
   },
 };
 </script>
