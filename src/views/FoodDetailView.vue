@@ -2,7 +2,6 @@
   <div class="food-detail">
     <navbar-component />
     <div class="container">
-
       <!-- breadcrumb -->
       <div class="row mt-3">
         <div class="col">
@@ -14,7 +13,9 @@
               <li class="breadcrumb-item" aria-current="page">
                 <router-link to="/foods" class="text-dark">Foods</router-link>
               </li>
-              <li class="breadcrumb-item active" aria-current="page">Food Order</li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Food Order
+              </li>
             </ol>
           </nav>
         </div>
@@ -23,30 +24,51 @@
       <!-- content detail -->
       <div class="row">
         <div class="col-md-6">
-          <img v-if="product.gambar" :src="require('@/assets/images/' + product.gambar)" class="img-fluid shadow"
-            alt="Product Image">
+          <img
+            v-if="product.gambar"
+            :src="require('@/assets/images/' + product.gambar)"
+            class="img-fluid shadow"
+            alt="Product Image"
+          />
           <p v-else>Gambar tidak tersedia</p>
         </div>
         <div class="col-md-6">
-          <h4><strong>{{ product.nama }}</strong></h4>
-          <h4>Harga : <strong>Rp. {{ product.harga }}</strong></h4>
-          <form>
+          <h4>
+            <strong>{{ product.nama }}</strong>
+          </h4>
+          <h4>
+            Harga : <strong>Rp. {{ product.harga }}</strong>
+          </h4>
+
+          <!-- agar tidak realod -->
+          <form class="mt-4" v-on:submit.prevent>
             <div class="form-group">
               <label for="jumlah_pemesanan">Jumlah Pesan</label>
-              <input type="number" class="form-control">
+              <input
+                type="number"
+                class="form-control"
+                v-model="pesan.jumlah_pemesanan"
+              />
             </div>
             <div class="form-group">
               <label for="keterangan">Keterangan</label>
-              <textarea class="form-control" placeholder="Keterangan sprt : Packing produk..."></textarea>
+              <textarea
+                class="form-control"
+                placeholder="Keterangan sprt : Packing produk..."
+                v-model="pesan.keterangan"
+              ></textarea>
             </div>
 
-            <button type="submit" class="btn btn-success mt-3">
+            <button
+              type="submit"
+              class="btn btn-success mt-3"
+              @click="pemesanan"
+            >
               <i class="bi bi-bag"></i> Pesan
             </button>
           </form>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -63,12 +85,43 @@ export default {
   // nantinya data API akan disimpan disini
   data() {
     return {
-      product: {}
+      product: {},
+      pesan: {},
     };
   },
   methods: {
     setProduct(data) {
       this.product = data;
+    },
+    // pemesanan ini akan beraksi jika user klik
+    pemesanan() {
+      console.log(this.pesan);
+      
+      if(this.pesan.jumlah_pemesanan) {
+        this.pesan.products = this.product;
+        axios
+        .post("http://localhost:3000/keranjangs", this.pesan)
+        .then(() => {
+          this.$toast.open({
+            message: "Sukses Masuk Keranjang",
+            type: "success",
+            position: 'top-right',
+            duration: 3000,
+            dismissible: true
+          });
+        })
+        .catch((err) => console.log(err));
+      } else {
+        this.$toast.open({
+            message: "Pesanan Harus diisi",
+            type: "error",
+            position: 'top-right',
+            duration: 3000,
+            dismissible: true
+          });
+      }
+
+     
     },
   },
   // ketika dijalankan/dipasang maka halaman code akan berjalan
@@ -85,9 +138,8 @@ export default {
         // handle error
         console.log(error);
       });
-  }
-}
-
+  },
+};
 </script>
 
 <style></style>
