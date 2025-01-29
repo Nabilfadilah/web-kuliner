@@ -11,7 +11,7 @@
               <li class="breadcrumb-item">
                 <router-link to="/" class="text-dark">Home</router-link>
               </li>
-              <li class="breadcrumb-item" aria-current="page">
+              <li class="breadcrumb-item">
                 <router-link to="/foods" class="text-dark">Foods</router-link>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
@@ -22,97 +22,72 @@
         </div>
       </div>
 
-      <!-- table -->
-      <div class="row">
+      <!-- Keranjang -->
+      <div class="row mt-3">
         <div class="col">
           <h4>Keranjang <strong>Saya</strong></h4>
-          <div class="table-responsive mt-3">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">No.</th>
-                  <th scope="col">Gambar</th>
-                  <th scope="col">Makanan</th>
-                  <th scope="col">Keterangan</th>
-                  <th scope="col">Jumlah</th>
-                  <th scope="col">Harga</th>
-                  <th scope="col">Total Harga</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(keranjang, index) in keranjangs"
-                  :key="keranjang.id"
-                >
-                  <th scope="row">{{ index + 1 }}.</th>
-                  <td>
-                    <img
-                      v-if="keranjang.products.gambar"
-                      :src="
-                        require('@/assets/images/' + keranjang.products.gambar)
-                      "
-                      class="img-fluid shadow"
-                      alt="Product Image"
-                    />
-                  </td>
-                  <td>
-                    <strong>{{ keranjang.products.nama }}</strong>
-                  </td>
-                  <td>
-                    {{ keranjang.keterangan ? keranjang.keterangan : "-" }}
-                  </td>
-                  <td>{{ keranjang.jumlah_pemesanan }}</td>
-                  <td>{{ formatRupiah(keranjang.products.harga) }}</td>
-                  <td>
-                    <strong
-                      >
-                      {{
-                        formatRupiah(keranjang.products.harga * keranjang.jumlah_pemesanan)
-                      }}</strong
-                    >
-                  </td>
-                  <td class="text-danger">
-                    <i
-                      class="bi bi-trash"
-                      @click="hapusKeranjang(keranjang.id)"
-                    ></i>
-                  </td>
-                </tr>
+        </div>
+      </div>
 
-                <tr>
-                  <td colspan="6" align="right">
-                    <strong>Total Harga : </strong>
-                  </td>
-                  <td>
-                    <strong>{{ formatRupiah(totalHarga) }}</strong>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-3">
+        <div v-for="keranjang in keranjangs" :key="keranjang.id" class="col">
+          <div class="card shadow-sm">
+            <img
+              v-if="keranjang.products.gambar"
+              :src="require('@/assets/images/' + keranjang.products.gambar)"
+              class="card-img-top"
+              alt="Product Image"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ keranjang.products.nama }}</h5>
+              <p class="card-text text-muted">
+                {{ keranjang.keterangan ? keranjang.keterangan : "-" }}
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span>Jumlah: {{ keranjang.jumlah_pemesanan }}</span>
+                <span class="fw-bold">
+                  {{
+                    formatRupiah(
+                      keranjang.products.harga * keranjang.jumlah_pemesanan
+                    )
+                  }}
+                </span>
+              </div>
+              <button
+                class="btn btn-danger mt-2 w-100"
+                @click="hapusKeranjang(keranjang.id)"
+              >
+                <i class="bi bi-trash"></i> Hapus
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- form checkout -->
+      <!-- Total Harga -->
+      <div class="row mt-4">
+        <div class="col text-end">
+          <h5>
+            <strong>Total Harga: {{ formatRupiah(totalHarga) }}</strong>
+          </h5>
+        </div>
+      </div>
+
+      <!-- Form Checkout -->
       <div class="row justify-content-end">
         <div class="col-md-4">
-          <form class="mt-4" v-on:submit.prevent>
+          <form class="mt-4" @submit.prevent="checkout">
             <div class="form-group mb-3">
-              <label for="nama">Nama :</label>
+              <label for="nama" class="fw-bold">Nama</label>
               <input type="text" class="form-control" v-model="pesan.nama" />
             </div>
 
             <div class="form-group">
-              <label for="noMeja">No Meja :</label>
+              <label for="noMeja" class="fw-bold">No Meja</label>
               <input type="text" class="form-control" v-model="pesan.noMeja" />
             </div>
 
-            <button
-              type="submit"
-              class="btn btn-success mt-3"
-              @click="checkout"
-            >
+            <button type="submit" class="btn btn-success mt-3 w-100">
               <i class="bi bi-bag"></i> Pesan
             </button>
           </form>
@@ -179,12 +154,11 @@ export default {
         axios
           .post("http://localhost:3000/pesanans", this.pesan)
           .then(() => {
-
             // hapus semua keranjang
             this.keranjangs.map((item) => {
               axios
                 .delete("http://localhost:3000/keranjangs/" + item.id)
-                
+
                 .catch((error) => {
                   // handle error
                   console.log(error);
